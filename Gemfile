@@ -45,3 +45,5 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 #Serializing API output
 gem 'active_model_serializers'
+# Access api
+gem 'rack-cors'
