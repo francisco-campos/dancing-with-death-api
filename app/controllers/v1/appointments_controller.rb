@@ -1,11 +1,34 @@
+require 'diary'
+
 class V1::AppointmentsController < ApplicationController
   before_action :set_appointment, only: [:show, :update, :destroy]
 
   # GET /appointments
   def index
     @appointments = Appointment.all
-
     render json: @appointments
+  end
+
+  # GET /appointments/by-date/yyy-mm-dd
+  def search
+    date = ToolsCalendar.convert_date(params[:date])
+    calendar = Calendar.new(date)
+    currenthour = ''
+    continue = true
+    while continue == true
+      currenthour = calendar.next_hour
+      if(currenthour != nil)
+        appointment = Appointment.where("reservation_date = ? and time_start = ? ",
+                                date, currenthour).take
+
+        calendar.add(appointment)
+      else
+        continue = false
+      end
+
+    end
+
+    render json: calendar.hours_finaly
   end
 
   # GET /appointments/1

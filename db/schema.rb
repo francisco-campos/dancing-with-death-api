@@ -10,15 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170612153019) do
+ActiveRecord::Schema.define(version: 20170613214255) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "appointments", force: :cascade do |t|
     t.boolean  "available"
     t.string   "name"
     t.string   "email"
     t.date     "reservation_date"
-    t.decimal  "time_start"
-    t.decimal  "time_end"
+    t.string   "time_start"
+    t.string   "time_end"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
   end
